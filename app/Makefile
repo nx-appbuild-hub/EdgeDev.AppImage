@@ -20,7 +20,7 @@ all: clean init
 	    libreadline8 at-spi2-core libpango-1.0-0 libselinux1 \
 	    libgtk-3-0 libwayland-cursor0
 
-	wget --output-document=$(PWD)/build/build.rpm https://packages.microsoft.com/yumrepos/edge/microsoft-edge-dev-101.0.1198.0-1.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm https://packages.microsoft.com/yumrepos/edge/microsoft-edge-dev-106.0.1349.1-1.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
 	cp --force --recursive $(PWD)/build/usr/share/*			            $(PWD)/build/Boilerplate.AppDir/share
