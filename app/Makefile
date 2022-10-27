@@ -16,8 +16,9 @@ PWD:=$(shell pwd)
 all: clean init
 	mkdir --parents $(PWD)/build/Boilerplate.AppDir/msedge
 	$(PWD)/bin/Apprepo.AppImage --destination=$(PWD)/build appdir boilerplate \
-	    libgdk-pixbuf2.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk2.0-0 libbotan-2-12 \
-	    libreadline8 at-spi2-core libpango-1.0-0 libselinux1
+	    libgdk-pixbuf2.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk2.0-0 \
+	    libreadline8 at-spi2-core libpango-1.0-0 libselinux1 libbotan-2-12 \
+	    libgtk-3-0 libwayland-cursor0
 
 	cp --recursive --force /opt/microsoft/msedge*/*  $(PWD)/build/Boilerplate.AppDir/msedge/
 
