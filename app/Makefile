@@ -16,14 +16,10 @@ PWD:=$(shell pwd)
 all: clean init
 	mkdir --parents $(PWD)/build/Boilerplate.AppDir/msedge
 	$(PWD)/bin/Apprepo.AppImage --destination=$(PWD)/build appdir boilerplate \
-	    libgdk-pixbuf2.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk2.0-0 \
+	    libgdk-pixbuf2.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk2.0-0 libbotan-2-12 \
 	    libreadline8 at-spi2-core libpango-1.0-0 libselinux1
 
-	wget --output-document=$(PWD)/build/build.rpm https://packages.microsoft.com/yumrepos/edge/microsoft-edge-dev-101.0.1198.0-1.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	cp --force --recursive $(PWD)/build/usr/share/*			            $(PWD)/build/Boilerplate.AppDir/share
-	cp --force --recursive $(PWD)/build/opt/microsoft/msedge*/* 	    $(PWD)/build/Boilerplate.AppDir/msedge
+	cp --recursive --force /opt/microsoft/msedge*/*  $(PWD)/build/Boilerplate.AppDir/msedge/
 
 	chmod 4755 $(PWD)/build/Boilerplate.AppDir/msedge/msedge-sandbox
 	chmod 4755 $(PWD)/build/Boilerplate.AppDir/msedge/msedge
@@ -37,6 +33,7 @@ all: clean init
 	rm -f $(PWD)/build/Boilerplate.AppDir/*.desktop 		|| true
 	rm -f $(PWD)/build/Boilerplate.AppDir/*.png 		  	|| true
 	rm -f $(PWD)/build/Boilerplate.AppDir/*.svg 		  	|| true
+	rm --force $(PWD)/build/Boilerplate.AppDir/lib64/libstdc++.so.6*  || true
 
 	cp --force $(PWD)/AppDir/*.desktop 			$(PWD)/build/Boilerplate.AppDir/ || true
 	cp --force $(PWD)/AppDir/*.png 				$(PWD)/build/Boilerplate.AppDir/ || true
@@ -52,7 +49,7 @@ init:
 		--output-document=$(PWD)/bin/Apprepo.AppImage
 	chmod +x $(PWD)/bin/Apprepo.AppImage
 
-	wget https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
+	wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage \
 		--output-document=$(PWD)/bin/appimagetool.AppImage
 	chmod +x $(PWD)/bin/appimagetool.AppImage
 
